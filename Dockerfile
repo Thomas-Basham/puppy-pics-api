@@ -24,10 +24,12 @@ COPY . .
 
 # collect static files
 #RUN python3 manage.py collectstatic --noinput
+RUN python3 manage.py makemigrations
+RUN python3 manage.py migrate
 
 # add and run as non-root user
 RUN adduser -D myuser
 USER myuser
 
 # run gunicorn
-CMD gunicorn puppy_pics_project.wsgi:application --bind 0.0.0.0:$PORT
+CMD gunicorn puppy_pics_project.wsgi:application --bind 0.0.0.0:8000
