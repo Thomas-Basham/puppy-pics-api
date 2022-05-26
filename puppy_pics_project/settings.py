@@ -31,7 +31,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', default='foo')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'limitless-atoll-51647.herokuapp.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'puppy-pics-api-thomas-basham.herokuapp.com']
 
 
 # Application definition

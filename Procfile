@@ -1,1 +1,0 @@
-web: gunicorn puppy_pics_project.wsgi
