@@ -24,8 +24,8 @@ COPY . .
 
 # collect static files
 #RUN python3 manage.py collectstatic --noinput
-RUN python3 manage.py makemigrations
-RUN python3 manage.py migrate
+#RUN python3 manage.py makemigrations
+#RUN python3 manage.py migrate
 
 # add and run as non-root user
 RUN adduser -D myuser
