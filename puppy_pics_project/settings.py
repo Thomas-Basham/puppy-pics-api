@@ -31,9 +31,9 @@ SECRET_KEY = os.getenv('SECRET_KEY', default='foo')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'puppy-pics-api-thomas-basham.herokuapp.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'https://puppy-pics-api-thomas-basham.herokuapp.com']
 
-
+CSRF_TRUSTED_ORIGINS = ["https://puppy-pics-api-thomas-basham.herokuapp.com.herokuapp.com"]
 # Application definition
 
 INSTALLED_APPS = [
@@ -51,6 +51,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -96,9 +97,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'HOST': 'server-ip',
         'PORT': '5432',
-        'NAME': 'database-name',
-        'USER': 'username',
-        'PASSWORD': 'password',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
         'OPTIONS': {
             'sslmode': 'require',
             # 'sslcert': '/path/to/file',
