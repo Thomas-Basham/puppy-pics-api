@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %} Home {% endblock %}
+
+{% block content %}
+
+    <h1 class="heading">Puppy Pic API!</h1>
+
+    {% for item in object_list %}
+        <h1>{{ item.name }}</h1>
+    {% endfor %}
+{% endblock content %}

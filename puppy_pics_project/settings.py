@@ -146,9 +146,9 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-# STATICFILES_DIRS = (
-#     os.path.join(BASE_DIR,"static/"),
-#     )
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR,"static/"),
+    )
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -186,20 +186,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Activate Django-Heroku.
 django_heroku.settings(locals())
 
-# # This is new
-# options = DATABASES['default'].get('OPTIONS', {})
-# options.pop('sslmode', None)
 
-#
-# DATABASES = {}
-# DATABASES['default'] = dj_database_url.config(conn_max_age=600)
-#
-#
-# prod_db = dj_database_url.config(conn_max_age=500)
-# DATABASES['default'].update(prod_db)
-#
-# options = DATABASES['default'].get('OPTIONS', {})
-# options.pop('sslmode', None)
 
 
 
