@@ -11,3 +11,4 @@ class PuppyPicList(generics.ListCreateAPIView):
 class PuppyPicDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = PuppyPic.objects.all()
     serializer_class = SnackSerializer
+    # Why is not delete button
