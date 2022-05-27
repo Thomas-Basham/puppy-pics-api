@@ -33,7 +33,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'https://puppy-pics-api-thomas-basham.herokuapp.com']
 
-CSRF_TRUSTED_ORIGINS = ["https://puppy-pics-api-thomas-basham.herokuapp.com.herokuapp.com"]
+CSRF_TRUSTED_ORIGINS = ["https://puppy-pics-api-thomas-basham.herokuapp.com"]
 # Application definition
 
 INSTALLED_APPS = [
