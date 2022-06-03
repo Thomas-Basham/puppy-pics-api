@@ -11,8 +11,10 @@
     <title>{% block title %} {% endblock %}</title>
 </head>
 <body>
+    <a class="button" href="https://puppy-pics-api-thomas-basham.herokuapp.com/api/v1/puppy_pics/">admin Login</a>
 <nav style="text-align: center">
-<a class="button" href="https://puppy-pics-api-thomas-basham.herokuapp.com/api/v1/puppy_pics/">Add a Puppy Pic</a>
+
+    <h2 style="text-align: center"><a class="button" href="{% url 'puppy_pic_create' %}"> Click Here to Create a puppy</a></h2>
 
 </nav>
 

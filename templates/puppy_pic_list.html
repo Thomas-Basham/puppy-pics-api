@@ -5,13 +5,18 @@
 
     <h1 class="heading">Puppy Pic API!</h1>
 
+
     {% for item in object_list %}
+
+            {% if item.img %}
         <div class="container">
 
-        <h1>{{ item.name | title }}</h1>
-        <img style="width: 50vw;" alt="{{ item.name | title}} image" src="{{ item.img.url }}">
-        <p style="">{{ item.description | title}}</p>
+            <h1>{{ item.name | title }}</h1>
+            <img style="width: 50vw;" alt="{{ item.name | title }} image" src="{{ item.img.url }}">
+
+            <p style="">{{ item.description | title }}</p>
 
         </div>
+        {% endif %}
     {% endfor %}
 {% endblock content %}

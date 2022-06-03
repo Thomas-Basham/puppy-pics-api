@@ -1,0 +1,14 @@
+{% extends 'puppy_pic_list.html' %}
+
+{% block content %}
+
+    <form  style="text-align: center; padding: 3vmax;" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input class="button" type="submit" value="Add a dang puppy pic">
+    </form>
+
+    <style>
+
+    </style>
+{% endblock %}
