@@ -6,7 +6,7 @@ from django.contrib.auth import get_user_model
 class PuppyPic(models.Model):
     name = models.CharField(max_length=64)
     description = models.CharField(max_length=64, default='')
-    img_url = models.CharField(max_length=20000)
+    img = models.ImageField(blank=True, null=True, upload_to='media/')
     added_by = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
 
     def __str__(self):
