@@ -4,12 +4,10 @@ from .serializers import SnackSerializer
 from .models import PuppyPic
 
 
-class PuppyPicList(generics.ListCreateAPIView, CreateView):
+class PuppyPicList(generics.ListCreateAPIView):
     queryset = PuppyPic.objects.all()
     serializer_class = SnackSerializer
     model = PuppyPic
-    template_name = 'puppy_pic_list.html'
-    fields = ["name", "img", "description", "added_by"]
 
 
 class PuppyPicDetail(generics.RetrieveUpdateDestroyAPIView):
