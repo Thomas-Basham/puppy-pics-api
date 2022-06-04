@@ -9,6 +9,15 @@
         <h2 style="text-align: center"><a class="button" href="{% url 'upload' %}"> Click Here to Add a pic</a></h2>
 
     </nav>
+    <form method="post" action="" >
+        {% csrf_token %}
+        {{ form }}
+                {{ backend_form }}
+
+
+        <input type="submit" value="Submit">
+    </form>
+
 
     {% for item in object_list %}
 
