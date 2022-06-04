@@ -6,10 +6,10 @@ from cloudinary.models import CloudinaryField
 
 # Create your models here.
 class PuppyPic(models.Model):
+    img = CloudinaryField('img')
     name = models.CharField(max_length=64)
     description = models.CharField(max_length=64, default='')
     # img = models.ImageField(upload_to='media/')
-    img = CloudinaryField('img')
     added_by = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
 
     def __str__(self):

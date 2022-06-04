@@ -95,6 +95,7 @@
             </form>
         </div>
     {% endblock %}
+    {% if dataset %}
     {% for item in dataset %}
 
         {% if item.img %}
@@ -104,10 +105,12 @@
                 <img style="width: 50vw;" alt="{{ item.name | title }} image" src="{{ item.img.url }}">
 
                 <p style="">{{ item.description | title }}</p>
+                <p style="">Added By: {{ item.added_by | title }}</p>
 
             </div>
         {% endif %}
     {% endfor %}
+    {% endif %}
 {% endblock content %}
 
 
