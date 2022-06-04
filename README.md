@@ -3,6 +3,12 @@
 
 [Deployed API](https://puppy-pics-api-thomas-basham.herokuapp.com)
 
+## About
+
+Full Stack Django Rest Framework API for Dog images with user file upload capability through Couldinary storage bucket
+
+Deployed with Docker 
+
 ## resources
 [Form CSS](https://www.sanwebe.com/2014/08/css-html-forms-designs)
 
