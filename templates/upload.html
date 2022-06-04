@@ -5,7 +5,7 @@
     <style type="text/css">
         .form-style-8 {
             font-family: 'Open Sans Condensed', arial, sans;
-            width: 500px;
+            width: 60vw;
             padding: 30px;
             background: #FFFFFF;
             margin: 50px auto;
@@ -82,7 +82,11 @@
     </style>
 
     {% block body %}
-        <div class="form-style-8">
+            <h1 style="margin-bottom: 4vh"class="heading">Puppy Pic API!</h1>
+
+
+        <h1 style="margin-bottom: 0">Add a Pic</h1>
+        <div class="form-style-8" style="margin-top: 2vh">
             <form action="{% url "upload" %}" method="post"
                   enctype="multipart/form-data">
                 {% csrf_token %}
