@@ -84,13 +84,19 @@
     {% block body %}
             <h1 style="margin-bottom: 4vh"class="heading">Puppy Pic API!</h1>
 
+    {% load crispy_forms_tags %}
 
         <h1 style="margin-bottom: 0">Add a Pic</h1>
         <div class="form-style-8" style="margin-top: 2vh">
             <form action="{% url "upload" %}" method="post"
                   enctype="multipart/form-data">
                 {% csrf_token %}
-                {{ backend_form }}
+            {{ pet_form|crispy }}
+
+            {{ formset.management_form }}
+            {% for form in formset %}
+            {{ form|crispy }}
+            {% endfor %}
                 <input type="submit" value="Upload">
             </form>
         </div>

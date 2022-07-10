@@ -12,7 +12,10 @@
 </head>
 <body>
     <a class="button" href={% url 'admin:index' %}>admin Login</a>
-
+            {% for message in messages %}
+                <li {% if message.tags %} class="{{ message.tags }} text-center list-unstyled">{{ message }}
+                    </li>{% endif %}
+            {% endfor %}
 
 {% block content %}{% endblock content %}
 </body>

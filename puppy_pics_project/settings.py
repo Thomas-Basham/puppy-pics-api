@@ -44,12 +44,12 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    "whitenoise.runserver_nostatic",  # Use this with whitenoise
     'django.contrib.staticfiles',
 
     'rest_framework',
-
-    'storages',
     'cloudinary',
+    'crispy_forms',
 
     'puppy_pics',
 
@@ -177,7 +177,7 @@ if os.path.isfile(dotenv_file):
     dotenv.load_dotenv(dotenv_file)
 
 #  Add configuration for static files storage using whitenoise
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 
 
@@ -208,3 +208,5 @@ cloudinary.config(
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 X_FRAME_OPTIONS = 'ALLOW-FROM https://thomasbashamportfolio.net'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
