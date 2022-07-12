@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% load static %}
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+    <style type="text/css">
+
+    </style>
+
+    {% block body %}
+        <h1 style="margin-bottom: 4vh" class="heading">Puppy Pic API!</h1>
+
+        {% load crispy_forms_tags %}
+
+        {% if  request.user.is_authenticated %}
+            <div class=form" style="margin-top: 2vh">
+                <form action="{% url "upload" %}" method="post"
+                      enctype="multipart/form-data">
+                <legend>Edit Pet Details</legend>
+                    {% csrf_token %}
+                    {{ form|crispy }}
+
+                    <input type="submit" value="Save Details">
+                </form>
+            </div>
+        {% endif %}
+    {% endblock %}
+
+
+
+
+{% endblock content %}
+
+

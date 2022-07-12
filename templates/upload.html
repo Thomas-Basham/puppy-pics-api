@@ -36,7 +36,7 @@
              {% for item in dataset %}
           <div class="col-lg-2 col-sm-6 col-md-4">
             <figure>
-              <a class="" href="">
+              <a class="img-a" href="">
                 <img width="250"src="{{ item.img.url }}" class="img-fluid" alt="{{ item.name | title }}" data-caption="{{ item.description }} <br><br> Pup's Name: {{ item.pet | title }} <br><br> Age: {{ item.pet.age }} <br><br> Added By: {{ item.added_by }}">
               </a>
             </figure>

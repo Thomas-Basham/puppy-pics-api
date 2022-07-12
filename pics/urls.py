@@ -1,7 +1,7 @@
 from django.urls import path
 
 from .views import puppy_pic_view, register_request,\
-    login_request, logout_request, documentation, pets
+    login_request, logout_request, documentation, pets, PetUpdateView
 
 urlpatterns = [
     path('', puppy_pic_view, name='upload'),
@@ -10,4 +10,6 @@ urlpatterns = [
     path("logout", logout_request, name="logout"),
     path("documentation", documentation, name="documentation"),
     path("pets", pets, name="pets"),
+    path('<int:pk>/update/', PetUpdateView.as_view(), name='pet_update'),
+
 ]

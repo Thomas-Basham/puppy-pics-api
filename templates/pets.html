@@ -12,37 +12,46 @@
     <br>
     <section class="image-grid" style="margin: 0 auto">
         <div class="container-xl">
-            <div class="row">
+       <div class="card-group">
                 {% for pet in pet_objects %}
-                    <div class="col-lg-3 col-sm-6 col-md-4">
-                                    <a class="" href="">
-                        <div class="card mb-3" style="width: 300px; margin: 0 auto">
-                            <div class="row g-0">
-                                <div class="col-md-4" style="margin: auto auto">
+                    <div class="col-md-3  ">
+                            <div class="card mb-3" style="width: 300px; margin: 0 auto">
+                                <div class="row g-0">
+                                    <div class="col-md-4" style="margin: auto auto">
+                        <a class="img-a" href="">
 
                                         <img src="{{ pet.get_profile_pic.0.img.url }}"
                                              class="img-fluid rounded-start img-fluid"
-                                             alt="..." data-caption="{{ pet.name | title }} <br><br> Age: {{ pet.age }} <br><br> Breed: {{ pet.breed }}<br><br> Owner: {{ pet.owner }}">
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="card-body">
-                                        <h5 class="card-title">{{ pet.name }}</h5>
-                                        {% if pet.get_profile_pic|length < 2 %}
-                                            <p class="card-text">{{ pet.name }} has {{ pet.get_profile_pic|length }}
-                                                photo </p>
-                                        {% elif pet.get_profile_pic|length > 2 %}
-                                            <p class="card-text">{{ pet.name }} has {{ pet.get_profile_pic|length }}
-                                                photos </p>
+                                             alt="..."
+                                             data-caption="{{ pet.name | title }} <br><br> Age: {{ pet.age }} <br><br> Breed: {{ pet.breed }}<br><br> Owner: {{ pet.owner }}">
+                        </a>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+
+                                        {% if pet.owner.id == request.user.id or pet.owner.id == 1 and request.user.is_authenticated  %}
+                                        <a href="{% url 'pet_update' pet.pk %}"><i class="bi-pencil-square" style="float: right; text-align: right"></i></a>
                                         {% endif %}
-                                        <p class="card-text"><small class="text-muted">Age: {{ pet.age }}</small></p>
-                                        <p class="card-text"><small class="text-muted">Breed: {{ pet.breed }}</small>
-                                        <p class="card-text"><small class="text-muted">Owner: {{ pet.owner }}</small>
-                                        </p>
+
+                                            <h5 class="card-title">{{ pet.name }}</h5>
+                                            {% if pet.get_profile_pic|length < 2 %}
+                                                <p class="card-text">{{ pet.name }} has {{ pet.get_profile_pic|length }}
+                                                    photo </p>
+                                            {% elif pet.get_profile_pic|length > 2 %}
+                                                <p class="card-text">{{ pet.name }} has {{ pet.get_profile_pic|length }}
+                                                    photos </p>
+                                            {% endif %}
+                                            <p class="card-text"><small class="text-muted">Age: {{ pet.age }}</small>
+                                            </p>
+                                            <p class="card-text"><small
+                                                    class="text-muted">Breed: {{ pet.breed }}</small>
+                                            <p class="card-text"><small
+                                                    class="text-muted">Owner: {{ pet.owner }}</small>
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                                    </a>
                     </div>
                 {% endfor %}
             </div>
@@ -70,7 +79,7 @@
     <script>
 
         const imageGrid = document.querySelector(".image-grid");
-        const links = imageGrid.querySelectorAll("a");
+        const links = imageGrid.querySelectorAll(".img-a");
         const imgs = imageGrid.querySelectorAll("img");
         const lightboxModal = document.getElementById("lightbox-modal");
         const bsModal = new bootstrap.Modal(lightboxModal);

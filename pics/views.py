@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.shortcuts import render, redirect
-from django.views.generic import ListView
+from django.urls import reverse
+from django.views.generic import ListView, UpdateView
 from django.forms import ModelForm
 from django.forms import modelformset_factory
 from django import forms
@@ -138,3 +139,28 @@ def pets(request):
     context["pet_objects"] = Pet.objects.all().order_by("name")
 
     return render(request, 'pets.html', context)
+
+
+class PetFormUpdate(ModelForm):
+    class Meta:
+        model = Pet
+        fields = '__all__'
+        labels = {'name': 'Name of Pet'}
+        widgets = {'born': DateInput(format=["%Y-%m-%d"], )}
+
+        help_texts = {
+            'breed': 'If you don\'t know, just guess',
+            'owner': 'Do you Own this dog?',
+            'description': 'Something short, sweet, and fun',
+        }
+
+
+class PetUpdateView(UpdateView):
+    template_name = "pet_update.html"
+    model = Pet
+    form_class = PetFormUpdate
+    help_texts = None
+
+    def get_success_url(self):
+        return reverse("pets")
+
