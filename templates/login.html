@@ -5,7 +5,7 @@
 
     {% load crispy_forms_tags %}
 
-    <h1 class="display-3">Login</h1>
+    <h1 class="">Login</h1>
 
     <br>
     <br>
@@ -19,7 +19,7 @@
             {% endfor %}
             {% csrf_token %}
             {{ login_form|crispy }}
-            <button class="btn btn-green" type="submit" style="background-color: #5bbb95;">Login</button>
+            <button class="btn btn-green" type="submit" style="background-color: #164773; color: dodgerblue">Login</button>
         </form>
 
         <p class="text-center">Don't have an account? <a href="/register">Create an account</a>.</p>

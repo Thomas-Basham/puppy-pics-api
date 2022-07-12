@@ -83,9 +83,9 @@ class PetForm(ModelForm):
         widgets = {'born': DateInput(format=["%Y-%m-%d"], )}
 
         help_texts = {
-            'breed': 'If the pet is already added, skip this',
-            'born': 'If the pet is already added, skip this',
-            'owner': 'If the pet is already added, skip this',
+            'breed': 'Skip this if the pet is already added',
+            'born': 'Skip this if the pet is already added',
+            'owner': 'Skip this if the pet is already added',
             'description': 'Something short, sweet, and fun',
         }
 
