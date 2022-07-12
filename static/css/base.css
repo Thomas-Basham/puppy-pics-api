@@ -22,7 +22,7 @@ nav {
 }
 
 body {
-    background-color: #7D4E13;
+    background-color: #7D4E13 !important;
 
 }
 
@@ -42,35 +42,43 @@ label {
     zoom: 1.1;
 }
 
+
 .docs {
-    /*background-color: #1E5959;*/
+    background-color: transparent;
     width: 80vw;
     margin: 20px auto;
     border: solid dodgerblue 1px;
     border-radius: 30px;
     padding-inline: 15px;
-    color: black;
-
 }
-
 
 .docs-content {
     width: 32%;
-    /*background-color: #0C7D74;*/
+    background-color: transparent;
     padding: 30px;
 
-
-
 }
 
+.docs-content h4 {
+    margin-top: 10px;
+}
+
+.docs-content .text-light {
+    font-size: 10px;
+}
 .docs-content-center {
-    border-inline: solid #452600 1px;
+border-inline: solid dodgerblue 1px;
 }
-   @media (max-width: 480px){
+
+@media (max-width: 480px){
        .docs-content-center {
-    border-block: solid #452600 1px;
+        border-block: solid dodgerblue 1px;
+        }
+
+        .row-container{
+            flex-direction: column;
+        }
 }
-   }
 
 
 .item_icon img {
