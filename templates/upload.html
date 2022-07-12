@@ -1,13 +1,50 @@
 {% extends 'base.html' %}
+
 {% block content %}
     {% load static %}
     <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
-    <style type="text/css">
 
-    </style>
 
+    <h1 style="margin-bottom: 4vh" class="heading">Puppy Pic Gallery</h1>
     {% block body %}
-        <h1 style="margin-bottom: 4vh" class="heading">Puppy Pic API!</h1>
+        <section class="image-grid w-50 " style="margin: 0 auto">
+            <div class="container-xl text-center">
+                <div class="row">
+                    {% for item in dataset %}
+                        <div class="col-lg-2 col-sm-6 col-md-4">
+                            <figure>
+                                <a class="img-a" href="">
+                                    <img width="250" src="{{ item.img.url }}" class="img-fluid"
+                                         alt="{{ item.name | title }}"
+                                         data-caption="{{ item.description }} <br><br> Pup's Name: {{ item.pet | title }} <br><br> Age: {{ item.pet.age }} <br><br> Added By: {{ item.added_by }}">
+                                </a>
+                            </figure>
+                        </div>
+                    {% endfor %}
+                    <!-- more columns here -->
+                </div>
+            </div>
+        </section>
+
+
+
+        <div class="modal lightbox-modal" id="lightbox-modal" tabindex="-1">
+            <div class="modal-dialog modal-fullscreen">
+                <div class="modal-content">
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    <div class="modal-body">
+                        <div class="container-fluid p-0">
+                            <!-- JS content here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
 
         {% load crispy_forms_tags %}
 
@@ -15,7 +52,7 @@
             <div class=form" style="margin-top: 2vh">
                 <form action="{% url "upload" %}" method="post"
                       enctype="multipart/form-data">
-                <legend>Add a Pic</legend>
+                    <legend>Add a Pic</legend>
                     {% csrf_token %}
                     {{ pet_form|crispy }}
 
@@ -30,66 +67,34 @@
     {% endblock %}
 
 
-    <section class="image-grid w-50 " style="margin: 0 auto">
-      <div class="container-xl text-center">
-        <div class="row">
-             {% for item in dataset %}
-          <div class="col-lg-2 col-sm-6 col-md-4">
-            <figure>
-              <a class="img-a" href="">
-                <img width="250"src="{{ item.img.url }}" class="img-fluid" alt="{{ item.name | title }}" data-caption="{{ item.description }} <br><br> Pup's Name: {{ item.pet | title }} <br><br> Age: {{ item.pet.age }} <br><br> Added By: {{ item.added_by }}">
-              </a>
-            </figure>
-          </div>
-            {% endfor %}
-          <!-- more columns here -->
-        </div>
-      </div>
-    </section>
+    <script>
 
+        const imageGrid = document.querySelector(".image-grid");
+        const links = imageGrid.querySelectorAll("a");
+        const imgs = imageGrid.querySelectorAll("img");
+        const lightboxModal = document.getElementById("lightbox-modal");
+        const bsModal = new bootstrap.Modal(lightboxModal);
+        const modalBody = document.querySelector(".modal-body .container-fluid");
 
+        for (const link of links) {
+            link.addEventListener("click", function (e) {
+                e.preventDefault();
+                const currentImg = link.querySelector("img");
+                const lightboxCarousel = document.getElementById("lightboxCarousel");
+                if (lightboxCarousel) {
+                    const parentCol = link.parentElement.parentElement;
+                    const index = [...parentCol.parentElement.children].indexOf(parentCol);
+                    const bsCarousel = new bootstrap.Carousel(lightboxCarousel);
+                    bsCarousel.to(index);
+                } else {
+                    createCarousel(currentImg);
+                }
+                bsModal.show();
+            });
+        }
 
-    <div class="modal lightbox-modal" id="lightbox-modal" tabindex="-1">
-      <div class="modal-dialog modal-fullscreen">
-        <div class="modal-content">
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-          <div class="modal-body">
-            <div class="container-fluid p-0">
-              <!-- JS content here -->
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-<script>
-
-const imageGrid = document.querySelector(".image-grid");
-const links = imageGrid.querySelectorAll("a");
-const imgs = imageGrid.querySelectorAll("img");
-const lightboxModal = document.getElementById("lightbox-modal");
-const bsModal = new bootstrap.Modal(lightboxModal);
-const modalBody = document.querySelector(".modal-body .container-fluid");
-
-for (const link of links) {
-  link.addEventListener("click", function (e) {
-    e.preventDefault();
-    const currentImg = link.querySelector("img");
-    const lightboxCarousel = document.getElementById("lightboxCarousel");
-    if (lightboxCarousel) {
-      const parentCol = link.parentElement.parentElement;
-      const index = [...parentCol.parentElement.children].indexOf(parentCol);
-      const bsCarousel = new bootstrap.Carousel(lightboxCarousel);
-      bsCarousel.to(index);
-    } else {
-      createCarousel(currentImg);
-    }
-    bsModal.show();
-  });
-}
-
-function createCarousel(img) {
-  const markup = `
+        function createCarousel(img) {
+            const markup = `
     <div id="lightboxCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="false">
       <div class="carousel-inner">
         ${createSlides(img)}
@@ -105,35 +110,35 @@ function createCarousel(img) {
     </div>
     `;
 
-  modalBody.innerHTML = markup;
-}
+            modalBody.innerHTML = markup;
+        }
 
-function createSlides(img) {
-  let markup = "";
-  const currentImgSrc = img.getAttribute("src");
+        function createSlides(img) {
+            let markup = "";
+            const currentImgSrc = img.getAttribute("src");
 
-  for (const img of imgs) {
-    const imgSrc = img.getAttribute("src");
-    const imgAlt = img.getAttribute("alt");
-    const imgCaption = img.getAttribute("data-caption");
+            for (const img of imgs) {
+                const imgSrc = img.getAttribute("src");
+                const imgAlt = img.getAttribute("alt");
+                const imgCaption = img.getAttribute("data-caption");
 
-    markup += `
+                markup += `
     <div class="carousel-item${currentImgSrc === imgSrc ? " active" : ""}">
       <img src=${imgSrc} alt=${imgAlt}>
       ${imgCaption ? createCaption(imgCaption) : ""}
     </div>
     `;
-  }
+            }
 
-  return markup;
-}
+            return markup;
+        }
 
-function createCaption(caption) {
-  return `<div class="carousel-caption">
+        function createCaption(caption) {
+            return `<div class="carousel-caption">
      <p class="m-0">${caption}</p>
     </div>`;
-}
-</script>
+        }
+    </script>
 
 
 

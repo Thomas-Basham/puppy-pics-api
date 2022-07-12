@@ -13,7 +13,7 @@
 
         {% if  request.user.is_authenticated %}
             <div class=form" style="margin-top: 2vh">
-                <form action="{% url "upload" %}" method="post"
+                <form  method="post"
                       enctype="multipart/form-data">
                 <legend>Edit Pet Details</legend>
                     {% csrf_token %}

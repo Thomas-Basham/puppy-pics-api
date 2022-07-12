@@ -29,11 +29,12 @@ class Pet(models.Model):
     def get_profile_pic(self):
         return PuppyPic.objects.filter(pet=self.id)
 
-
     def save(self, *args, **kwargs):
         self.name = self.name.capitalize()
         return super().save(*args, **kwargs)
 
+    def get_absolute_url(self):
+        return reverse("pets")
 
 class PuppyPic(models.Model):
     img = CloudinaryField('img')

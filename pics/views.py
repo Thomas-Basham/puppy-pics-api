@@ -161,6 +161,6 @@ class PetUpdateView(UpdateView):
     form_class = PetFormUpdate
     help_texts = None
 
-    def get_success_url(self):
-        return reverse("pets")
-
+    # def get_success_url(self):
+    #     return reverse("pets")
+    #

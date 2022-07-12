@@ -1,6 +1,6 @@
 from django.views.generic import CreateView
 from rest_framework import generics
-from .serializers import SnackSerializer
+from .serializers import SnackSerializer, PetSerializer
 from .models import PuppyPic, Pet
 
 
@@ -19,11 +19,11 @@ class PuppyPicDetail(generics.RetrieveUpdateDestroyAPIView):
 # Pets
 class PetList(generics.ListCreateAPIView):
     queryset = Pet.objects.all()
-    serializer_class = SnackSerializer
+    serializer_class = PetSerializer
     model = PuppyPic
 
 
 class PetDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Pet.objects.all()
-    serializer_class = SnackSerializer
+    serializer_class = PetSerializer
 
