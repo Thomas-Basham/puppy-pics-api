@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Documentation {% endblock %}
+
+{% block content %}
+
+    <h1 class="display-3 text-center text-break">Check out our Pups</h1>
+
+    <br>
+    <br>
+
+    <div class="container-xl">
+        <div class="row">
+            {% for pet in pet_objects %}
+                <div class="col-lg-2 col-sm-6 col-md-4">
+                    <div class="card mb-3" style="max-width: 540px; margin: 0 auto">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="{{ pet.get_profile_pic.0.img.url }}" class="img-fluid rounded-start"
+                                     alt="...">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ pet.name }}</h5>
+                                    <p class="card-text">{{ pet.name }} has {{ pet.get_profile_pic|length }}
+                                        photo(s) </p>
+                                    <p class="card-text"><small class="text-muted">Age: {{ pet.age }}</small></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock content %}

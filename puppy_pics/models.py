@@ -24,6 +24,10 @@ class Pet(models.Model):
         import datetime
         return int((datetime.date.today() - self.born).days / 365.25)
 
+    def get_profile_pic(self):
+        return PuppyPic.objects.filter(pet=self.id)
+
+
     def save(self, *args, **kwargs):
         self.name = self.name.capitalize()
         return super().save(*args, **kwargs)

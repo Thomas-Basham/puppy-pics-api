@@ -21,6 +21,7 @@
 
             <div class=" navbar-collapse show" id="navbarToggleExternalContent">
                 <div class="navbar-nav">
+                    <a class="nav-link  " href="/pets">Pups</a>
                     <a class="nav-link  " href="/documentation">Documentation</a>
                     {% if not request.user.is_authenticated %}
                         <a class="nav-link " href="{% url 'login' %}">Login/Register</a>

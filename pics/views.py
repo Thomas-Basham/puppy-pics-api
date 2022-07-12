@@ -25,10 +25,7 @@ def puppy_pic_view(request):
         pet_form = PetForm(request.POST)
         formset = ImageFormSet(request.POST, request.FILES)
         if pet_form.is_valid() and formset.is_valid():
-            # print("CLEANED DATA, ", pet_form.cleaned_data['name'])
-            if Pet.objects.filter(name=pet_form.cleaned_data[
-                'name'].capitalize()):  # if the pet is already there, just select that pet
-
+            if Pet.objects.filter(name=pet_form.cleaned_data['name'].capitalize()):  # if the pet is already there, just select that pet
                 for form in formset.cleaned_data:
                     if form:
                         image = form['img']
@@ -127,3 +124,10 @@ def logout_request(request):
 def documentation(request):
     context = dict(current_user=request.user)
     return render(request, 'documentation.html', context)
+
+
+def pets(request):
+    context = dict(current_user=request.user)
+    context["pet_objects"] = Pet.objects.all().order_by("name")
+
+    return render(request, 'pets.html', context)
