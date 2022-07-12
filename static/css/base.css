@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
-
+main {
+    min-height: 80vh;
+    margin-bottom: 50px;
+}
 nav {
     padding-top: 4vh;
     text-align: center;
@@ -20,32 +23,77 @@ nav {
 }
 
 body {
-    background-color: beige;
+    background-color: #7D4E13;
 
 }
 
 h1 {
-    padding-top: 5vh;
-    text-align: center;
+    margin-top: 3vh;
+    text-align: left;
     font-family: Luckiest Guy, cursive;
     letter-spacing: 2px;
+    margin-left: 120px;
 }
 
 label {
     padding: 10px;
 }
 
-input[type=text] {
-    width: calc(80% - 57px);
-    height: 36px;
-    margin: 13px 0 0 -5px;
-    padding-left: 10px;
-    border-radius: 0 5px 5px 0;
-    border: solid 1px #cbc9c9;
-    box-shadow: 1px 2px 5px rgba(0, 0, 0, .09);
-    background: #fff;
-}
-
 .button:hover {
     zoom: 1.2;
+}
+
+.docs {
+    /*background-color: #1E5959;*/
+    width: 80vw;
+    margin: 20px auto;
+    border: solid #452600 1px;
+    border-radius: 30px;
+    padding-inline: 15px;
+    color: black;
+
+}
+
+
+.docs-content {
+    width: 32%;
+    /*background-color: #0C7D74;*/
+    padding: 30px;
+
+
+
+}
+
+.docs-content-center {
+    border-inline: solid #452600 1px;
+}
+   @media (max-width: 480px){
+       .docs-content-center {
+    border-block: solid #452600 1px;
+}
+   }
+
+
+.item_icon img {
+        filter: invert(100%);
+}
+.docs-content h4 {
+    margin-top: 10px;
+}
+
+.docs-content .text-light {
+    font-size: 10px;
+    color: #D4A56A !important;
+}
+
+.card {
+    background-color: #E6B87C;
+}
+
+.card-body {
+    background-color: #FFDBAD;
+}
+.nav-bottom {
+    background-color: rgba(106, 112, 224, 0.1);
+
 }

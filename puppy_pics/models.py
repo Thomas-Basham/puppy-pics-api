@@ -15,6 +15,8 @@ from django.utils.datetime_safe import strftime, date
 
 class Pet(models.Model):
     name = models.CharField(max_length=20)
+    breed = models.CharField(max_length=64, blank=True)
+    owner = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, blank=True)
     born = models.DateField(blank=True)
 
     def __str__(self):

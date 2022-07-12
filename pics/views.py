@@ -59,7 +59,11 @@ class PhotoForm(ModelForm):
         # fields = '__all__'
         exclude = ('date_added', 'pet', 'added_by')  # , 'added_by'
         labels = {'name': 'Title of Photo', 'img': 'Image'}
-        help_texts = {'description': 'Something short, sweet, and fun', }
+        help_texts = {
+            'description': 'Something short, sweet, and fun',
+            'name': 'What is the title of the photo?',
+
+        }
 
 
 class DateInput(forms.DateInput):  # widget for date selector
@@ -76,11 +80,14 @@ class PetForm(ModelForm):
         model = Pet
         fields = '__all__'
         labels = {'name': 'Name of Pet'}
-        widgets = {'born': DateInput(format=["%Y-%m-%d"], ),
+        widgets = {'born': DateInput(format=["%Y-%m-%d"], )}
 
+        help_texts = {
+            'breed': 'If the pet is already added, skip this',
+            'born': 'If the pet is already added, skip this',
+            'owner': 'If the pet is already added, skip this',
+            'description': 'Something short, sweet, and fun',
         }
-        help_texts = {'born': 'If the pet is already added, skip this',
-            'description': 'Something short, sweet, and fun', }
 
 
 def register_request(request):

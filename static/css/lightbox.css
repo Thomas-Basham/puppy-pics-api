@@ -11,15 +11,20 @@
   margin-top: auto;
 }
 
-.image-grid img {
+.image-grid img, .card {
   box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.15);
   transition: box-shadow 0.2s;
 }
 
-.image-grid a:hover img {
+.image-grid a:hover .card {
   box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.35);
+  text-decoration: none !important;
 }
+.image-grid a {
+  color: inherit;
+  text-decoration: inherit;
 
+}
 /* LIGHTBOX STYLES
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .lightbox-modal .modal-content {
@@ -69,3 +74,4 @@
 .lightbox-modal .carousel-control-next {
   right: 10px;
 }
+
