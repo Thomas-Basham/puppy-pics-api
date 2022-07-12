@@ -1,14 +1,12 @@
 from django.urls import path
 
-from .views import puppy_pic_view
-
-from django.conf import settings
-from django.conf.urls.static import static
+from .views import puppy_pic_view, register_request,\
+    login_request, logout_request, documentation
 
 urlpatterns = [
     path('', puppy_pic_view, name='upload'),
-    # path('upload/', upload, name='upload'),
-    # path('<int:pk>', SnackDetailView.as_view(), name='snack_detail'),  # Integer, Primary Key
-    # path('create/', PuppyPicCreateView.as_view(), name='puppy_pic_create'),
-
+    path("register", register_request, name="register"),
+    path("login", login_request, name="login"),
+    path("logout", logout_request, name="logout"),
+    path("documentation", documentation, name="documentation"),
 ]

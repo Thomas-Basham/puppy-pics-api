@@ -2,121 +2,147 @@
 {% block content %}
     {% load static %}
     <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{% static 'css/lightbox.css' %}">
+    <link rel="stylesheet" href="{% static 'css/form.css' %}">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <style type="text/css">
-        .form-style-8 {
-            font-family: 'Open Sans Condensed', arial, sans;
-            width: 60vw;
-            padding: 30px;
-            background: #FFFFFF;
-            margin: 50px auto;
-            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
-            -moz-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
-            -webkit-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
 
-        }
-
-        .form-style-8 h2 {
-            background: #4D4D4D;
-            text-transform: uppercase;
-            font-family: 'Open Sans Condensed', sans-serif;
-            color: #797979;
-            font-size: 18px;
-            font-weight: 100;
-            padding: 20px;
-            margin: -30px -30px 30px -30px;
-        }
-
-        .form-style-8 input[type="text"],
-        .form-style-8 input[type="date"],
-        .form-style-8 input[type="datetime"],
-        .form-style-8 input[type="email"],
-        .form-style-8 input[type="number"],
-        .form-style-8 input[type="search"],
-        .form-style-8 input[type="time"],
-        .form-style-8 input[type="url"],
-        .form-style-8 input[type="password"],
-        .form-style-8 textarea,
-        .form-style-8 select {
-            box-sizing: border-box;
-            -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            outline: none;
-            display: block;
-            width: 100%;
-            padding: 7px;
-            border: none;
-            border-bottom: 1px solid #ddd;
-            background: transparent;
-            margin-bottom: 10px;
-            font: 16px Arial, Helvetica, sans-serif;
-            height: 45px;
-        }
-
-        .form-style-8 textarea {
-            resize: none;
-            overflow: hidden;
-        }
-
-        .form-style-8 input[type="button"],
-        .form-style-8 input[type="submit"] {
-            -moz-box-shadow: inset 0px 1px 0px 0px #45D6D6;
-            -webkit-box-shadow: inset 0px 1px 0px 0px #45D6D6;
-            box-shadow: inset 0px 1px 0px 0px #45D6D6;
-            background-color: #2CBBBB;
-            border: 1px solid #27A0A0;
-            display: inline-block;
-            cursor: pointer;
-            color: #FFFFFF;
-            font-family: 'Open Sans Condensed', sans-serif;
-            font-size: 14px;
-            padding: 8px 18px;
-            text-decoration: none;
-            text-transform: uppercase;
-        }
-
-        .form-style-8 input[type="button"]:hover,
-        .form-style-8 input[type="submit"]:hover {
-            background: linear-gradient(to bottom, #34CACA 5%, #30C9C9 100%);
-            background-color: #34CACA;
-        }
     </style>
 
     {% block body %}
-            <h1 style="margin-bottom: 4vh"class="heading">Puppy Pic API!</h1>
+        <h1 style="margin-bottom: 4vh" class="heading">Puppy Pic API!</h1>
 
-    {% load crispy_forms_tags %}
+        {% load crispy_forms_tags %}
 
-        <h1 style="margin-bottom: 0">Add a Pic</h1>
-        <div class="form-style-8" style="margin-top: 2vh">
-            <form action="{% url "upload" %}" method="post"
-                  enctype="multipart/form-data">
-                {% csrf_token %}
-            {{ pet_form|crispy }}
+        {% if  request.user.is_authenticated %}
+            <h1 style="margin-bottom: 0">Add a Pic</h1>
+            <div class="form-style-8" style="margin-top: 2vh">
+                <form action="{% url "upload" %}" method="post"
+                      enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ pet_form|crispy }}
 
-            {{ formset.management_form }}
-            {% for form in formset %}
-            {{ form|crispy }}
-            {% endfor %}
-                <input type="submit" value="Upload">
-            </form>
-        </div>
-    {% endblock %}
-    {% if dataset %}
-    {% for item in dataset %}
-
-        {% if item.img %}
-            <div class="container">
-
-                <h1>{{ item.name | title }}</h1>
-                <img style="width: 50vw;" alt="{{ item.name | title }} image" src="{{ item.img.url }}">
-
-                <p style="">{{ item.description | title }}</p>
-                <p style="">Added By: {{ item.added_by | title }}</p>
-
+                    {{ formset.management_form }}
+                    {% for form in formset %}
+                        {{ form|crispy }}
+                    {% endfor %}
+                    <input type="submit" value="Upload">
+                </form>
             </div>
         {% endif %}
-    {% endfor %}
-    {% endif %}
+    {% endblock %}
+
+
+    <section class="image-grid w-50 " style="margin: 0 auto">
+      <div class="container-xl text-center">
+        <div class="row">
+             {% for item in dataset %}
+          <div class="col-lg-2 col-sm-6 col-md-4">
+            <figure>
+              <a class="" href="">
+                <img width="250"src="{{ item.img.url }}" class="img-fluid" alt="{{ item.name | title }}" data-caption="{{ item.description }} <br><br> Pup's Name: {{ item.pet | title }} <br><br> Age: {{ item.pet.age }}">
+              </a>
+            </figure>
+          </div>
+            {% endfor %}
+          <!-- more columns here -->
+        </div>
+      </div>
+    </section>
+
+
+
+    <div class="modal lightbox-modal" id="lightbox-modal" tabindex="-1">
+      <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content">
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          <div class="modal-body">
+            <div class="container-fluid p-0">
+              <!-- JS content here -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<script>
+
+const imageGrid = document.querySelector(".image-grid");
+const links = imageGrid.querySelectorAll("a");
+const imgs = imageGrid.querySelectorAll("img");
+const lightboxModal = document.getElementById("lightbox-modal");
+const bsModal = new bootstrap.Modal(lightboxModal);
+const modalBody = document.querySelector(".modal-body .container-fluid");
+
+for (const link of links) {
+  link.addEventListener("click", function (e) {
+    e.preventDefault();
+    const currentImg = link.querySelector("img");
+    const lightboxCarousel = document.getElementById("lightboxCarousel");
+    if (lightboxCarousel) {
+      const parentCol = link.parentElement.parentElement;
+      const index = [...parentCol.parentElement.children].indexOf(parentCol);
+      const bsCarousel = new bootstrap.Carousel(lightboxCarousel);
+      bsCarousel.to(index);
+    } else {
+      createCarousel(currentImg);
+    }
+    bsModal.show();
+  });
+}
+
+function createCarousel(img) {
+  const markup = `
+    <div id="lightboxCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="false">
+      <div class="carousel-inner">
+        ${createSlides(img)}
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#lightboxCarousel" data-bs-slide="prev">
+       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+       <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#lightboxCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+    `;
+
+  modalBody.innerHTML = markup;
+}
+
+function createSlides(img) {
+  let markup = "";
+  const currentImgSrc = img.getAttribute("src");
+
+  for (const img of imgs) {
+    const imgSrc = img.getAttribute("src");
+    const imgAlt = img.getAttribute("alt");
+    const imgCaption = img.getAttribute("data-caption");
+
+    markup += `
+    <div class="carousel-item${currentImgSrc === imgSrc ? " active" : ""}">
+      <img src=${imgSrc} alt=${imgAlt}>
+      ${imgCaption ? createCaption(imgCaption) : ""}
+    </div>
+    `;
+  }
+
+  return markup;
+}
+
+function createCaption(caption) {
+  return `<div class="carousel-caption">
+     <p class="m-0">${caption}</p>
+    </div>`;
+}
+</script>
+
+
+
+
+
+
 {% endblock content %}
 
 
