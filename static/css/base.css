@@ -10,9 +10,10 @@ nav {
 
 
 .button {
-    background-color: cadetblue;
+    background-color: transparent;
+    border: 1px solid #164773;
     border-radius: 10px;
-    color: white;
+    color: dodgerblue;
     padding: 5px 20px;
     text-align: center;
     text-decoration: none;
@@ -38,14 +39,14 @@ label {
 }
 
 .button:hover {
-    zoom: 1.2;
+    zoom: 1.1;
 }
 
 .docs {
     /*background-color: #1E5959;*/
     width: 80vw;
     margin: 20px auto;
-    border: solid #452600 1px;
+    border: solid dodgerblue 1px;
     border-radius: 30px;
     padding-inline: 15px;
     color: black;
