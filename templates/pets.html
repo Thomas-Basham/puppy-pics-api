@@ -37,7 +37,7 @@
                                             {% if pet.get_profile_pic|length < 2 %}
                                                 <p class="card-text">{{ pet.name }} has {{ pet.get_profile_pic|length }}
                                                     photo </p>
-                                            {% elif pet.get_profile_pic|length > 2 %}
+                                            {% elif pet.get_profile_pic|length >= 2 %}
                                                 <p class="card-text">{{ pet.name }} has {{ pet.get_profile_pic|length }}
                                                     photos </p>
                                             {% endif %}
