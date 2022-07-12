@@ -11,6 +11,8 @@ from django.contrib.auth.forms import AuthenticationForm
 from datetime import date, timedelta
 from puppy_pics.forms import NewUserForm
 from puppy_pics.models import PuppyPic, Pet
+from django.core.mail import send_mail
+from django.conf import settings
 
 
 # Create your views here.
@@ -26,7 +28,8 @@ def puppy_pic_view(request):
         pet_form = PetForm(request.POST)
         formset = ImageFormSet(request.POST, request.FILES)
         if pet_form.is_valid() and formset.is_valid():
-            if Pet.objects.filter(name=pet_form.cleaned_data['name'].capitalize()):  # if the pet is already there, just select that pet
+            if Pet.objects.filter(name=pet_form.cleaned_data[
+                'name'].capitalize()):  # if the pet is already there, just select that pet
                 for form in formset.cleaned_data:
                     if form:
                         image = form['img']
@@ -37,6 +40,8 @@ def puppy_pic_view(request):
                         PuppyPic.objects.create(img=image,
                                                 pet=Pet.objects.filter(name=pet_form.cleaned_data['name'].capitalize())[
                                                     0], name=name, description=description, added_by=request.user, )
+                        send_email(name, request.user)
+
             else:
                 pet_obj = pet_form.save()  # else add the pet
 
@@ -49,8 +54,10 @@ def puppy_pic_view(request):
 
                         PuppyPic.objects.create(img=image, pet=pet_obj, name=name, description=description,
                                                 added_by=request.user, )
-        return redirect('upload')
+                        send_email(name, request.user)
 
+        return redirect('upload')
+    print(request.user.email)
     return render(request, 'upload.html', context)
 
 
@@ -161,6 +168,30 @@ class PetUpdateView(UpdateView):
     form_class = PetFormUpdate
     help_texts = None
 
-    # def get_success_url(self):
-    #     return reverse("pets")
-    #
+    def form_valid(self, form):
+        send_mail(subject="Puppy Pic API",
+                  message="Someone updated a pet",
+                  from_email=settings.EMAIL_HOST_USER,
+                  recipient_list=[settings.ADMIN_EMAIL],
+                  fail_silently=False)
+        return super(PetUpdateView, self).form_valid(form)
+
+
+def send_email(name, user_data):
+    # subject = form_data.cleaned_data['subject']
+    subject = 'Puppy Pic API'
+
+    try:
+        email = user_data.email
+    except:
+        email = 'INVALID EMAIL'
+
+    message = f'''Puppy Pic Alert!
+        {user_data} added a new photo called {name}
+    '''
+
+    send_mail(subject,
+              message,
+              from_email=settings.EMAIL_HOST_USER,
+              recipient_list=[settings.ADMIN_EMAIL, email],
+              fail_silently=False)

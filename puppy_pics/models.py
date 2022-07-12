@@ -36,6 +36,7 @@ class Pet(models.Model):
     def get_absolute_url(self):
         return reverse("pets")
 
+
 class PuppyPic(models.Model):
     img = CloudinaryField('img')
     name = models.CharField(max_length=64)

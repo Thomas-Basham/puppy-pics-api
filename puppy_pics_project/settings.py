@@ -210,3 +210,13 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 X_FRAME_OPTIONS = 'ALLOW-FROM https://thomasbashamportfolio.net'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+
+# EMAIL SETTINGS
+EMAIL_BACKEND = os.getenv('EMAIL_BACKEND')
+EMAIL_HOST = os.getenv('EMAIL_HOST')
+EMAIL_PORT = os.getenv('EMAIL_PORT')
+EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS')
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')# ADMIN EMAIL
+ADMIN_EMAIL = os.getenv('ADMIN_EMAIL')
