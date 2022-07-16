@@ -1,15 +1,12 @@
 from django.contrib import messages
 from django.shortcuts import render, redirect
-from django.urls import reverse
-from django.views.generic import ListView, UpdateView
+from django.views.generic import UpdateView
 from django.forms import ModelForm
 from django.forms import modelformset_factory
 from django import forms
-from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
-from django.contrib.auth.forms import AuthenticationForm
-from datetime import date, timedelta
-from puppy_pics.forms import NewUserForm
+from datetime import date
+from puppy_pics.forms import NewUserForm, UserLoginForm
 from puppy_pics.models import PuppyPic, Pet
 from django.core.mail import send_mail
 from django.conf import settings
@@ -28,8 +25,7 @@ def puppy_pic_view(request):
         pet_form = PetForm(request.POST)
         formset = ImageFormSet(request.POST, request.FILES)
         if pet_form.is_valid() and formset.is_valid():
-            if Pet.objects.filter(name=pet_form.cleaned_data[
-                'name'].capitalize()):  # if the pet is already there, just select that pet
+            if Pet.objects.filter(name=pet_form.cleaned_data['name'].capitalize()):  # if the pet is already there, just select that pet
                 for form in formset.cleaned_data:
                     if form:
                         image = form['img']
@@ -57,7 +53,7 @@ def puppy_pic_view(request):
                         send_email(name, request.user)
 
         return redirect('upload')
-    print(request.user.email)
+    # print(request.user.email)
     return render(request, 'upload.html', context)
 
 
@@ -105,7 +101,7 @@ def register_request(request):
             user = form.save()
             login(request, user)
             messages.success(request, "Registration successful.")
-            return redirect("login")
+            return redirect("upload")
         messages.error(request, "Unsuccessful registration. Invalid information.")
     form = NewUserForm()
     return render(request=request, template_name="register.html", context={"register_form": form})
@@ -113,9 +109,10 @@ def register_request(request):
 
 def login_request(request):
     if request.method == "POST":
-        form = AuthenticationForm(request, data=request.POST)
+        form = UserLoginForm(request, data=request.POST)
         if form.is_valid():
             username = form.cleaned_data.get('username')
+            username = username.lower()
             password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=password)
             if user is not None:
@@ -126,7 +123,7 @@ def login_request(request):
                 messages.error(request, "Invalid username or password.")
         else:
             messages.error(request, "Invalid username or password.")
-    form = AuthenticationForm()
+    form = UserLoginForm()
     return render(request=request, template_name="login.html", context={"login_form": form})
 
 
