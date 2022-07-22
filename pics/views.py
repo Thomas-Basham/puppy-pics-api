@@ -25,7 +25,8 @@ def puppy_pic_view(request):
         pet_form = PetForm(request.POST)
         formset = ImageFormSet(request.POST, request.FILES)
         if pet_form.is_valid() and formset.is_valid():
-            if Pet.objects.filter(name=pet_form.cleaned_data['name'].capitalize()):  # if the pet is already there, just select that pet
+            if Pet.objects.filter(name=pet_form.cleaned_data[
+                'name'].capitalize()):  # if the pet is already there, just select that pet
                 for form in formset.cleaned_data:
                     if form:
                         image = form['img']
